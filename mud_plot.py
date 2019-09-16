@@ -14,7 +14,7 @@ def load_results(filename):
     return results_x,results_y
 
 if __name__=='__main__':
-    filename = 'results_solution1.txt'
+    filename = '.Results/results_solution1.txt'
     results_x,results_y = load_results(filename)
     results_x = results_x[4:]
     results_y = results_y[4:]

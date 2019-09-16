@@ -40,6 +40,6 @@ if __name__ == '__main__':
     
     print(tests)
 
-    with open('results.txt','w') as f:
+    with open('./Results/results.txt','w') as f:
         for result in tests:
             f.write(str(result[0]).rjust(len(str(max_dimension)),' ')+'      '+str(result[1])+'\n')
