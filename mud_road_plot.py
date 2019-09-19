@@ -9,19 +9,22 @@ def run_sim(reps,max_value,max_dim):
     
     for n in range(2,max_dim+1):
         time_sum = 0
-        matrix,line = build_random_map(n,n,max_value)
         begin = time()
         for i in range(reps): #to get a good average time over multiple repetitions
+            matrix,line = build_random_map(n,n,max_value)
+            zipped_line = get_zipped_matrix_list(line,n)
             block = False
             
             #we can safely remove n-1 nodes with the highest cost without blocking all passages
             for x in range(n-1):
-                m     = black_hole(matrix,line)
+                m     = newest_black_hole(zipped_line,matrix,x)
+            index = x
             #as long as there's a passage, remove nodes where the price is the highest
             while not block:
-                m     = black_hole(matrix,line)
+                m     = newest_black_hole(zipped_line,matrix,index)
                 #check if there's still a path
                 block = all_blocked(matrix)
+                index+=1
                 
         end = time()
         time_sum+=(end-begin)*1000/reps
@@ -33,7 +36,7 @@ def run_sim(reps,max_value,max_dim):
 
 if __name__ == '__main__':
 
-    repetitions   = 1000
+    repetitions   = 3
     max_price     = 10000
     max_dimension = 100
     tests = run_sim(repetitions,max_price,max_dimension)
